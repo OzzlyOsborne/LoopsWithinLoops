@@ -3,15 +3,15 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Joshua Osborne.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    # run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -80,9 +80,40 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+
+    orig_x = circle.center.x
+    orig_y = circle.center.y
+    radius = circle.radius
+    x = circle.center.x
+    y = circle.center.y
+    for i in range(r):  # Loop through the rows
+        for j in range(3):  # Loop through the columns
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+            window.render(0.1)
+
+            x = x + (2 * radius)  # Move x to the right, for next circle
+
+        y = y + 2 * radius  # Move y down, for the next row of circles
+        x = orig_x  # Reset x to the left-edge, for the next row
+
+
+    for i in range(3):
+        for j in range(c+3):
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+            window.render(0.1)
+
+            x = x + (2 * radius)  # Move x to the right, for next circle
+
+        y = y + 2 * radius  # Move y down, for the next row of circles
+        x = orig_x # Reset x to the left-edge, for the next row
+
 
 
 def run_test_draw_wall_on_right():
@@ -124,6 +155,32 @@ def draw_wall_on_right(rectangle, n, window):
     # TODO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+
+    orig_c1 = rectangle.corner_1
+    orig_c2 = rectangle.corner_2
+
+    for k in range(n):
+
+        y1 = orig_c1.y + k*rectangle.get_height()
+        y2 = orig_c2.y + k*rectangle.get_height()
+
+        for j in range(k+1):
+
+            x1 = orig_c1.x - j*rectangle.get_width()
+            x2 = orig_c2.x - j*rectangle.get_width()
+
+            new_rect = rg.Rectangle(rg.Point(x1,y1), rg.Point(x2,y2))
+            new_rect.attach_to(window)
+            window.render(0.1)
+
+
+
+
+
+
+
+
+
 
 
 # ----------------------------------------------------------------------
